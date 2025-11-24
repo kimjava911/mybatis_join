@@ -1,6 +1,7 @@
 package kr.java.join.model.domain;
 
 public class Post {
+    private Long postId;
     private Long infoId;
     private String title;
     private String content;
@@ -27,5 +28,13 @@ public class Post {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Long getPostId() {
+        return postId;
+    }
+
+    public void setPostId(Long postId) {
+        this.postId = postId;
     }
 }

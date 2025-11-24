@@ -8,4 +8,31 @@
         insert into post (info_id, title, content)
         values (#{infoId}, #{title}, #{content})
     </insert>
+
+    <resultMap id="postByUserResultMap" type="kr.java.join.model.dto.PostByUserDTO">
+        <result property="username" column="username" />
+        <result property="nickname" column="nickname" />
+        <result property="email" column="email" />
+        <collection property="posts" ofType="kr.java.join.model.domain.Post">
+            <id property="postId" column="post_id" />
+            <result property="infoId" column="info_id" />
+            <result property="title" column="title" />
+            <result property="content" column="content" />
+        </collection>
+    </resultMap>
+
+    <!-- WHERE 문에 들어갈 것을 JOIN으로 땡겨서 써도 된다 -->
+    <select id="findByUsername" resultMap="postByUserResultMap">
+        SELECT
+            ul.username,
+            ui.nickname, ui.email,
+            p.post_id, p.info_id, p.title, p.content
+        FROM
+            user_login ul
+        JOIN
+            user_info ui ON ul.login_id = ui.login_id
+            AND ul.username = #{username}
+        JOIN
+            post p USING (info_id)
+    </select>
 </mapper>

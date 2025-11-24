@@ -26,7 +26,9 @@ public class PostController {
     }
 
     @GetMapping
-    public String page() {
+    public String page(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        model.addAttribute("posts", postMapper.findByUsername(username));
         return "post";
     }
 
