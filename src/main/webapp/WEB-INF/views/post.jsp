@@ -18,14 +18,15 @@
         PostByUserDTO dto = (PostByUserDTO) request.getAttribute("posts");
         if (dto != null) {
     %>
-        <%= dto.getUsername() %><br>
-        <%= dto.getNickname() %><br>
-        <%= dto.getEmail() %><br>
+        유저네임 : <%= dto.getUsername() %><br>
+        별명 : <%= dto.getNickname() %><br>
+        이메일 : <%= dto.getEmail() %><br>
         <hr>
     <% for (Post p : dto.getPosts()) { %>
-        <%= p.getPostId() %><br>
-        <%= p.getTitle() %><br>
-        <%= p.getContent() %>
+        게시글ID : <%= p.getPostId() %><br>
+        제목 : <%= p.getTitle() %><br>
+        내용 : <%= p.getContent() %><br>
+        <hr>
     <% } } %>
 </body>
 </html>
