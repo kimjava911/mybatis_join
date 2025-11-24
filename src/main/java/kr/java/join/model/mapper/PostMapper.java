@@ -13,4 +13,10 @@ public interface PostMapper {
     List<PostWithNicknameDTO> findAll(String username);
     // 유저가 추천한 게시물 모음
     PostByUserRecommendDTO findByRecommend(String username);
+
+    List<PostDTO> findByIds(int... ids);
+
+    int insertPostsBatch(List<Post> posts);
+
+    List<PostDTO> findWithKeyword(String keyword);
 }
