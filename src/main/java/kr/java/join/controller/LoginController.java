@@ -54,6 +54,7 @@ public class LoginController {
             return "redirect:/";
         }
         model.addAttribute("info", userLoginMapper.findByUsernameWithInfo(username));
+        model.addAttribute("recommend", postMapper.findByRecommend(username));
         return "info";
     }
 }

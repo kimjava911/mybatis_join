@@ -1,10 +1,7 @@
 package kr.java.join.model.mapper;
 
 import kr.java.join.model.domain.Post;
-import kr.java.join.model.dto.PostByUserDTO;
-import kr.java.join.model.dto.PostWithNicknameDTO;
-import kr.java.join.model.dto.UserLoginDTO;
-import kr.java.join.model.dto.UserLoginWithInfoDTO;
+import kr.java.join.model.dto.*;
 
 import java.util.List;
 
@@ -14,4 +11,6 @@ public interface PostMapper {
     PostByUserDTO findByUsername(String username);
     // 본인의 추천여부를 보려고 함
     List<PostWithNicknameDTO> findAll(String username);
+    // 유저가 추천한 게시물 모음
+    PostByUserRecommendDTO findByRecommend(String username);
 }

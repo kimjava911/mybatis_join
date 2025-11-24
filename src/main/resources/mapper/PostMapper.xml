@@ -56,4 +56,35 @@
             user_login r_ul ON r_ui.login_id = r_ul.login_id
         GROUP BY post_id
     </select>
+
+    <resultMap id="postByUserRecommendResultMap" type="kr.java.join.model.dto.PostByUserRecommendDTO">
+        <result property="username" column="username" />
+        <result property="nickname" column="nickname" />
+        <result property="email" column="email" />
+        <collection property="posts" ofType="kr.java.join.model.domain.Post">
+            <id property="postId" column="post_id" />
+            <result property="infoId" column="info_id" />
+            <result property="title" column="title" />
+            <result property="content" column="content" />
+        </collection>
+    </resultMap>
+
+    <select id="findByRecommend" resultMap="postByUserRecommendResultMap">
+        SELECT
+            ul.username,
+            ui.nickname, ui.email,
+            -- 추천을 당한 (M:N) ...
+            p.post_id, p.info_id, p.title, p.content
+        FROM
+            user_login ul
+            JOIN user_info ui
+                ON ul.login_id = ui.login_id
+                AND ul.username = #{username}
+            -- 유저의 정보 (위에까지는...)
+            JOIN recommend r -- 유저가 추천한 목록. (info_id)
+                ON r.info_id = ui.info_id
+            -- info_id -> recommend -> post_id
+            JOIN post p
+                ON p.post_id = r.post_id
+    </select>
 </mapper>
