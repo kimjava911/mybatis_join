@@ -2,6 +2,7 @@ package kr.java.join.controller;
 
 import jakarta.servlet.http.HttpSession;
 import kr.java.join.model.dto.UserLoginDTO;
+import kr.java.join.model.mapper.PostMapper;
 import kr.java.join.model.mapper.UserLoginMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,14 +13,18 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping // DispatcherServlet -> '/'
 public class LoginController {
     private final UserLoginMapper userLoginMapper;
+    private final PostMapper postMapper;
 
     // 생성자 주입
-    public LoginController(UserLoginMapper userLoginMapper) {
+    public LoginController(UserLoginMapper userLoginMapper, PostMapper postMapper) {
         this.userLoginMapper = userLoginMapper;
+        this.postMapper = postMapper;
     }
 
     @GetMapping
-    public String index() {
+    public String index(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        model.addAttribute("posts", postMapper.findAll(username));
         return "index";
     }
 

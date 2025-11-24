@@ -1,3 +1,5 @@
+<%@ page import="java.util.List" %>
+<%@ page import="kr.java.join.model.dto.PostWithNicknameDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -26,6 +28,20 @@
     <section>
         <a href="<%= request.getContextPath()%>/info">정보 보기</a>
         <a href="<%= request.getContextPath()%>/post">글 쓰기</a>
+    </section>
+    <section>
+        <%-- 전체 글 목록 --%>
+        <%
+            List<PostWithNicknameDTO> posts = (List<PostWithNicknameDTO>) request.getAttribute("posts");
+            for (PostWithNicknameDTO p : posts) { %>
+            별명 : <%= p.nickname() %><br>
+            게시글ID : <%= p.postId() %><br>
+            제목 : <%= p.title() %><br>
+            내용 : <%= p.content() %><br>
+            추천수 : <%= p.recommendCnt() %><br>
+            나의 추천 : <%= p.myRecommend() %><br>
+        <hr>
+        <% } %>
     </section>
     <% } %>
 </body>

@@ -35,4 +35,25 @@
         JOIN
             post p USING (info_id)
     </select>
+
+    <select id="findAll" resultType="kr.java.join.model.dto.PostWithNicknameDTO">
+        SELECT
+            p.post_id, p.title, p.content,
+            p_ui.nickname,
+            -- 1. recommend -> 추천이 있는지 여부
+            count(r.post_id) recommendCnt,
+            -- 2. 내 추천인지
+            if(sum(CASE WHEN r_ul.username = #{username} THEN 1 OR 0 END) > 0, 'Y', 'N') myRecommend
+        FROM
+            post p
+        JOIN -- 작성자 : post -> info_id -> nickname
+            user_info p_ui ON p.info_id = p_ui.info_id
+        LEFT JOIN -- recommend -> LEFT JOIN
+            recommend r USING (post_id)
+        LEFT JOIN
+            user_info r_ui ON r.info_id = r_ui.info_id
+        LEFT JOIN
+            user_login r_ul ON r_ui.login_id = r_ul.login_id
+        GROUP BY post_id
+    </select>
 </mapper>
