@@ -25,6 +25,7 @@
     <h2>무엇을 하러 오셨나요?</h2>
     <section>
         <a href="<%= request.getContextPath()%>/info">정보 보기</a>
+        <a href="<%= request.getContextPath()%>/post">글 쓰기</a>
     </section>
     <% } %>
 </body>

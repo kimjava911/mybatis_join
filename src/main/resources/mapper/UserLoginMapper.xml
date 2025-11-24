@@ -17,6 +17,7 @@
         <result property="username" column="username" />
         <!-- association 쓰고 싶으면 Record 쓰면 안된다 :) -->
         <association property="userInfo" javaType="kr.java.join.model.dto.UserInfoDTO">
+            <result property="infoId" column="info_id" />
             <result property="nickname" column="nickname" />
             <result property="email" column="email" />
         </association>
@@ -26,6 +27,7 @@
             resultMap="loginWithInfoResultMap">
         SELECT
             ul.username,
+            ui.info_id,
             ui.nickname,
             ui.email
         FROM
