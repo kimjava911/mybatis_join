@@ -1,12 +1,17 @@
 package kr.java.join.model.dto;
 
-//public record UserInfoDTO(
-//        String nickname,
-//        String email) {
-//}
 public class UserInfoDTO {
+    private Long infoId;
     private String nickname;
     private String email;
+
+    public Long getInfoId() {
+        return infoId;
+    }
+
+    public void setInfoId(Long infoId) {
+        this.infoId = infoId;
+    }
 
     public String getNickname() {
         return nickname;
